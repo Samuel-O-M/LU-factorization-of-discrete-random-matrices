@@ -1,6 +1,6 @@
-# On the Probability of LU Factorization of Discrete Random Matrices
+# LU Factorization of Discrete Random Matrices
 
-This repository contains the code and computational results for the project, "On the Probability of LU Factorization of Discrete Random Matrices."
+This repository contains the code and computational results for the project, "LU Factorization of Discrete Random Matrices."
 
 ## Authors and Affiliation
 
