@@ -1,2 +1,31 @@
-# Large files - can be obtained running readable.jl
-readable_data/
+# Julia
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+Manifest.toml
+
+# Large binary data files
+data/local/binary/families_7x7.bin
+
+data/local/readable/families_7x7.json
+
+data/super/binary/families_7x7.bin
+data/super/binary/families_8x8.bin
+data/super/binary/counts_9x9.bin
+
+data/super/readable/families_7x7.json
+data/super/readable/families_8x8.json
+data/super/readable/counts_9x9.json
+
+# SLURM output files
+*.out
+*.err
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
