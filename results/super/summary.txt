@@ -1,0 +1,9 @@
+N=1 Families=1 Total=1
+N=2 Families=2 Total=4
+N=3 Families=7 Total=68
+N=4 Families=43 Total=5008
+N=5 Families=661 Total=1603232
+N=6 Families=33091 Total=2224232640
+N=7 Families=5694567 Total=13288620860672
+N=8 Families=3209511057 Total=339148010221571072
+N=9 Signatures=5152485 Total=36646054311185413881216
