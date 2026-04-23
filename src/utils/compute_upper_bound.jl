@@ -12,12 +12,12 @@ const TARGET_N = length(ARGS) > 1 ? parse(Int, ARGS[2]) : 30
 
 if MODE == "super"
     const INPUT_FILE = "data/super/binary/counts_9x9.bin"
-    const OUTPUT_DIR = "results/super/plots"
+    const OUTPUT_DIR = "results/super"
     const OUTPUT_FILE = joinpath(OUTPUT_DIR, "upper_bound_9x9.json")
     const N_BASE = 9
 else
     const INPUT_FILE = "data/local/binary/counts_8x8.bin"
-    const OUTPUT_DIR = "results/local/plots"
+    const OUTPUT_DIR = "results/local"
     const OUTPUT_FILE = joinpath(OUTPUT_DIR, "upper_bound_8x8.json")
     const N_BASE = 8
 end
