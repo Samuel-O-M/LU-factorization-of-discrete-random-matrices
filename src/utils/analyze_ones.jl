@@ -7,12 +7,12 @@ const MODE = length(ARGS) > 0 ? ARGS[1] : "local"
 
 if MODE == "super"
     const INPUT_FILE = "data/super/binary/counts_9x9.bin"
-    const OUTPUT_DIR = "results/super/plots"
+    const OUTPUT_DIR = "results/super"
     const OUTPUT_FILE = joinpath(OUTPUT_DIR, "ones_9x9.json")
     const N = 9
 else
     const INPUT_FILE = "data/local/binary/counts_8x8.bin"
-    const OUTPUT_DIR = "results/local/plots"
+    const OUTPUT_DIR = "results/local"
     const OUTPUT_FILE = joinpath(OUTPUT_DIR, "ones_8x8.json")
     const N = 8
 end

@@ -156,7 +156,7 @@ julia src/utils/analyze_ones.jl local
 julia src/utils/analyze_ones.jl super
 ```
 
-**Output:** `results/<mode>/plots/ones_NxN.json`
+**Output:** `results/<mode>/ones_NxN.json`
 
 ### Compute Upper Bound
 
@@ -173,7 +173,7 @@ julia src/utils/compute_upper_bound.jl super 100       # Based on 9×9 data, N=1
 - First argument: `local` or `super` (default: `local`)
 - Second argument: `N` - target matrix dimension (default: `30`)
 
-**Output:** `results/<mode>/plots/upper_bound_NxN.json`
+**Output:** `results/<mode>/upper_bound_NxN.json`
 
 ### Convert Binary to JSON
 
@@ -218,8 +218,8 @@ julia src/utils/convert_to_json.jl super
 | File | Description |
 |------|-------------|
 | `summary.txt` | Summary statistics |
-| `plots/ones_NxN.json` | Ones distribution data |
-| `plots/upper_bound_NxN.json` | Upper bound calculations |
+| `ones_NxN.json` | Ones distribution data |
+| `upper_bound_NxN.json` | Upper bound calculations |
 
 ---
 
