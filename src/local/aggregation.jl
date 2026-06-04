@@ -162,7 +162,7 @@ end
 
 function main()
     mkpath("data/local/binary")
-    mkpath("results/local")
+    mkpath("results")
     
     parents = load_families("data/local/binary/families_7x7.bin")
     if isempty(parents)
@@ -172,7 +172,7 @@ function main()
     
     total_8, num_signatures = aggregate_n8(parents)
     
-    open("results/local/summary.txt", "a") do report
+    open("results/summary_local.txt", "a") do report
         println(report, "N=8 Signatures=$num_signatures Total=$total_8")
     end
     @printf("N=8 Signatures=%d Total=%d\n", num_signatures, total_8)

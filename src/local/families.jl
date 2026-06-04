@@ -174,19 +174,19 @@ end
 
 function main()
     mkpath("data/local/binary")
-    mkpath("results/local")
+    mkpath("results")
     f1 = "data/local/binary/families_1x1.bin"
     current = [Family(UInt64(1), UInt64(1))]
     save_families(f1, current)
     total = sum(f.count for f in current; init=UInt64(0))
-    open("results/local/summary.txt", "w") do report
+    open("results/summary_local.txt", "w") do report
         println(report, "N=1 Families=$(length(current)) Total=$total")
     end
     @printf("N=1 Families=%d Total=%d\n", length(current), total)
     for n in 2:7
         current = generate_level(current, n)
         total = sum(f.count for f in current; init=UInt64(0))
-        open("results/local/summary.txt", "a") do report
+        open("results/summary_local.txt", "a") do report
             println(report, "N=$n Families=$(length(current)) Total=$total")
         end
         @printf("N=%d Families=%d Total=%d\n", n, length(current), total)

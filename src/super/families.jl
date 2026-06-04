@@ -271,7 +271,7 @@ function log_results(n::Int)
     end
 
     println(" [STATS] N=$n Families: $unique_families | Total Matrices: $total_matrices")
-    open("results/super/summary.txt", "a") do log
+    open("results/summary_super.txt", "a") do log
         println(log, "N=$n Families=$unique_families Total=$total_matrices")
     end
 end
@@ -432,7 +432,7 @@ end
 
 function main()
     mkpath("data/super/binary")
-    mkpath("results/super")
+    mkpath("results")
 
     f1 = "data/super/binary/families_1x1.bin"
     if !is_batch_valid(f1)
@@ -444,11 +444,11 @@ function main()
         end
         mv(tmp_name, f1; force=true)
         println("Initializing N=1")
-        open("results/super/summary.txt", "w") do log
+        open("results/summary_super.txt", "w") do log
             println(log, "N=1 Families=1 Total=1")
         end
     else
-        open("results/super/summary.txt", "w") do log
+        open("results/summary_super.txt", "w") do log
             println(log, "N=1 Families=1 Total=1")
         end
         log_results(1)

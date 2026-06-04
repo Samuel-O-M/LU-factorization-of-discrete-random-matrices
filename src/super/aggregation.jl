@@ -192,7 +192,7 @@ end
 
 function main()
     mkpath("data/super/binary")
-    mkpath("results/super")
+    mkpath("results")
     parent_file = "data/super/binary/families_8x8.bin"
     output_file = "data/super/binary/counts_9x9.bin"
 
@@ -289,7 +289,7 @@ function main()
     mv(tmp_output, output_file; force=true)
     println("Process FINISHED. Result in $output_file")
     @printf("N=9 Signatures=%d Total=%s\n", num_signatures, string(total_matrices))
-    open("results/super/summary.txt", "a") do log
+    open("results/summary_super.txt", "a") do log
         println(log, "N=9 Signatures=$num_signatures Total=$total_matrices")
     end
 end

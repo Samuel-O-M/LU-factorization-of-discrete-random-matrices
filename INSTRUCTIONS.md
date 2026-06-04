@@ -82,7 +82,7 @@ julia src/local/aggregation.jl
 **What it does:**
 - Aggregates families by their signatures (row and column sums)
 - Outputs counts to `data/local/binary/counts_8x8.bin`
-- Generates summary to `results/local/summary.txt`
+- Generates summary to `results/summary_local.txt`
 
 ---
 
@@ -139,41 +139,42 @@ Same configuration options apply as for families.
 - Job output: `aggregation_<jobid>.out`
 - Job errors: `aggregation_<jobid>.err`
 - Counts file: `data/super/binary/counts_9x9.bin`
-- Summary: `results/super/summary.txt`
+- Summary: `results/summary_super.txt`
 
 ---
 
 ## Utility Scripts
 
-All utility scripts are located in `src/utils/` and accept a mode argument (`local` or `super`).
+All utility scripts are located in `src/utils/`.
 
 ### Analyze Ones Distribution
 
-Computes the distribution of ones (non-zero entries) in the matrices:
+Computes the distribution of ones (non-zero entries) for n=1,...,9 from all available data.
+Uses families files for n=1..7 and counts files for n=8,9:
 
 ```bash
-julia src/utils/analyze_ones.jl local
-julia src/utils/analyze_ones.jl super
+julia src/utils/analyze_ones.jl
 ```
 
-**Output:** `results/<mode>/ones_NxN.json`
+**Output:** `results/ones.json`
 
 ### Compute Upper Bound
 
-Computes upper bounds on probabilities for larger matrix dimensions:
+Computes upper bounds on probabilities for larger matrix dimensions.
+Automatically processes both 8×8 and 9×9 data if available:
 
 ```bash
-julia src/utils/compute_upper_bound.jl local           # Based on 8×8 data, N=30 (default)
-julia src/utils/compute_upper_bound.jl super           # Based on 9×9 data, N=30 (default)
-julia src/utils/compute_upper_bound.jl local 50        # Based on 8×8 data, N=50
-julia src/utils/compute_upper_bound.jl super 100       # Based on 9×9 data, N=100
+julia src/utils/compute_upper_bound.jl       # Target N=30 (default)
+julia src/utils/compute_upper_bound.jl 50    # Target N=50
+julia src/utils/compute_upper_bound.jl 100   # Target N=100
 ```
 
 **Parameters:**
-- First argument: `local` or `super` (default: `local`)
-- Second argument: `N` - target matrix dimension (default: `30`)
+- First argument: `N` - target matrix dimension (default: `30`)
 
-**Output:** `results/<mode>/upper_bound_NxN.json`
+**Output:**
+- `results/upper_bound_8x8.json`
+- `results/upper_bound_9x9.json`
 
 ### Convert Binary to JSON
 
@@ -208,18 +209,20 @@ julia src/utils/convert_to_json.jl super
 - 8 bytes: Column sums (8 × UInt8)
 - 8 bytes: Count (UInt64)
 
-**Counts file (9×9):** Each record is 27 bytes:
+**Counts file (9×9):** Each record is 34 bytes:
 - 9 bytes: Row sums (9 × UInt8)
 - 9 bytes: Column sums (9 × UInt8)
-- 9 bytes: Count (UInt128, padded)
+- 16 bytes: Count (UInt128)
 
 ### Results
 
 | File | Description |
 |------|-------------|
-| `summary.txt` | Summary statistics |
-| `ones_NxN.json` | Ones distribution data |
-| `upper_bound_NxN.json` | Upper bound calculations |
+| `summary_local.txt` | Summary statistics (local 8×8 pipeline) |
+| `summary_super.txt` | Summary statistics (super 9×9 pipeline) |
+| `ones.json` | Combined ones distribution for n=1..9 |
+| `upper_bound_8x8.json` | Upper bound calculations (8×8 base) |
+| `upper_bound_9x9.json` | Upper bound calculations (9×9 base) |
 
 ---
 
@@ -267,7 +270,7 @@ sbatch scripts/run_families.sh
 sbatch scripts/run_aggregation.sh
 
 # Utilities
-julia src/utils/analyze_ones.jl local
-julia src/utils/compute_upper_bound.jl local [N]
+julia src/utils/analyze_ones.jl
+julia src/utils/compute_upper_bound.jl [N]
 julia src/utils/convert_to_json.jl local
 ```
