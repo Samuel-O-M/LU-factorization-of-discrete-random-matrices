@@ -1,7 +1,7 @@
 using Printf
 
 const N = 4
-const OUTPUT_FILE = "experiments/matrices_4x4.json"
+const OUTPUT_FILE = "experiment/matrices_4x4.json"
 
 function det_2x2(a11, a12, a21, a22)
     return a11 * a22 - a12 * a21

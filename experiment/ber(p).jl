@@ -5,8 +5,8 @@ using Random
 const TARGET_N      = length(ARGS) > 0 ? parse(Int, ARGS[1]) : 30
 const X_MULTIPLIER  = 100.0
 const BASE_N        = 4
-const DB_FILE       = "experiments/matrices_4x4.json"
-const OUTPUT_FILE   = "experiments/ber_n$(TARGET_N).json"
+const DB_FILE       = "experiment/matrices_4x4.json"
+const OUTPUT_FILE   = "experiment/ber_n$(TARGET_N).json"
 const GLOBAL_SEED   = 42
 
 const MILESTONES = Int[6, 12, 20, 30, 45, 70]
