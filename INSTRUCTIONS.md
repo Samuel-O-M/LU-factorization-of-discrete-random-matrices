@@ -9,7 +9,8 @@ This document provides detailed instructions for running all components of this 
 3. [Running Locally](#running-locally)
 4. [Running on a Supercomputer (SLURM)](#running-on-a-supercomputer-slurm)
 5. [Utility Scripts](#utility-scripts)
-6. [Output Files](#output-files)
+6. [Monte Carlo Experiments](#monte-carlo-experiments)
+7. [Output Files](#output-files)
 
 ---
 
@@ -43,6 +44,7 @@ The project computes LU factorization properties of discrete random matrices. It
 |----------|-------------|----------|-------------|
 | **Local** | 8×8 | `src/local/` | Runs on local machine |
 | **Supercomputer** | 9×9 | `src/super/` | Runs on SLURM cluster |
+| **Monte Carlo** | 30+ | `experiment/` | Exact sampling with progressive expansion |
 
 Each pipeline has two stages:
 1. **Families** - Computes equivalence classes of matrices
@@ -189,6 +191,40 @@ julia src/utils/convert_to_json.jl super
 
 ---
 
+## Monte Carlo Experiments
+
+Estimates P(strongly non‑singular at N) for Bernoulli(p) matrices using exact `BigInt` arithmetic. Samples from the exact 4×4 SNS database, then progressively extends to the target dimension. Each 4×4 matrix is weighted by its probability under Bernoulli(p).
+
+### Step 1: Build the 4×4 SNS Database
+
+Enumerates every 4×4 binary matrix with top‑left corner = 1 and collects those that are strongly non‑singular (all leading principal minors ≠ 0):
+
+```bash
+julia experiment/base_4x4.jl
+```
+
+**What it does:**
+- Enumerates 32768 matrices
+- Checks all leading principal minors (1×1, 2×2, 3×3, 4×4)
+- Writes SNS matrices to `experiment/matrices_4x4.json`
+
+### Step 2: Bernoulli(p) Probability Estimation
+
+Loads the 4×4 SNS database and estimates P(SNS at N) for p = 0.01, 0.02, ..., 1.00 using progressive expansion through milestone sizes (6, 12, 20, 30, 45, 70):
+
+```bash
+julia experiment/ber(p).jl        # N = 30 (default)
+julia experiment/ber(p).jl 50     # N = 50
+julia experiment/ber(p).jl 100    # N = 100
+```
+
+**Parameters:**
+- First argument: `N` — target matrix dimension (default: `30`)
+
+**Output:** `experiment/ber_n<N>.json`
+
+---
+
 ## Output Files
 
 ### Data Files
@@ -223,6 +259,8 @@ julia src/utils/convert_to_json.jl super
 | `ones.json` | Combined ones distribution for n=1..9 |
 | `upper_bound_8x8.json` | Upper bound calculations (8×8 base) |
 | `upper_bound_9x9.json` | Upper bound calculations (9×9 base) |
+| `matrices_4x4.json` | Exact 4×4 SNS matrix database |
+| `ber_n<N>.json` | Bernoulli(p) probability estimates for target N |
 
 ---
 
@@ -273,4 +311,8 @@ sbatch scripts/run_aggregation.sh
 julia src/utils/analyze_ones.jl
 julia src/utils/compute_upper_bound.jl [N]
 julia src/utils/convert_to_json.jl local
+
+# Monte Carlo
+julia experiment/base_4x4.jl
+julia experiment/ber(p).jl [N]
 ```
