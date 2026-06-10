@@ -1,8 +1,3 @@
-# Convert binary data files to readable JSON format
-# Usage: julia src/utils/convert_to_json.jl [local|super]
-#   local - converts data/local/binary/ files (default)
-#   super - converts data/super/binary/ files
-
 using Printf
 
 const MODE = length(ARGS) > 0 ? ARGS[1] : "local"
