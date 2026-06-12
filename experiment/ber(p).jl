@@ -3,7 +3,7 @@ using Printf
 using Random
 
 const TARGET_N      = length(ARGS) > 0 ? parse(Int, ARGS[1]) : 30
-const X_MULTIPLIER  = 100.0
+const X_MULTIPLIER  = 200.0
 const BASE_N        = 4
 const DB_FILE       = "experiment/matrices_4x4.json"
 const OUTPUT_FILE   = "experiment/ber_n$(TARGET_N).json"
