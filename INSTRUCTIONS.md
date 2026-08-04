@@ -178,6 +178,24 @@ julia src/utils/compute_strong_upper_bound.jl 100   # Target N=100
 - `results/strong_upper_bound_8x8.json`
 - `results/strong_upper_bound_9x9.json`
 
+### Compute Weak Upper Bound
+
+Computes weaker upper bounds on probabilities for larger matrix dimensions using only the number of non-zero entries of the base matrices.
+Automatically processes both 8×8 and 9×9 data if available:
+
+```bash
+julia src/utils/compute_weak_upper_bound.jl       # Target N=30 (default)
+julia src/utils/compute_weak_upper_bound.jl 50    # Target N=50
+julia src/utils/compute_weak_upper_bound.jl 100   # Target N=100
+```
+
+**Parameters:**
+- First argument: `N` - target matrix dimension (default: `30`)
+
+**Output:**
+- `results/weak_upper_bound_8x8.json`
+- `results/weak_upper_bound_9x9.json`
+
 ### Convert Binary to JSON
 
 Converts binary data files to human-readable JSON format:
@@ -259,6 +277,8 @@ julia experiment/ber(p).jl 100    # N = 100
 | `ones.json` | Combined ones distribution for n=1..9 |
 | `strong_upper_bound_8x8.json` | Strong upper bound calculations (8×8 base) |
 | `strong_upper_bound_9x9.json` | Strong upper bound calculations (9×9 base) |
+| `weak_upper_bound_8x8.json` | Weak upper bound calculations (8×8 base) |
+| `weak_upper_bound_9x9.json` | Weak upper bound calculations (9×9 base) |
 | `matrices_4x4.json` | Exact 4×4 SNS matrix database |
 | `ber_n<N>.json` | Bernoulli(p) probability estimates for target N |
 
@@ -310,6 +330,7 @@ sbatch scripts/run_aggregation.sh
 # Utilities
 julia src/utils/analyze_ones.jl
 julia src/utils/compute_strong_upper_bound.jl [N]
+julia src/utils/compute_weak_upper_bound.jl [N]
 julia src/utils/convert_to_json.jl local
 
 # Monte Carlo
